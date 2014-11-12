@@ -1,0 +1,77 @@
+ArrayList<Bullet> bullets = new ArrayList<Bullet>();
+
+int px;
+int py;
+
+float theta;
+
+PImage Player;
+
+boolean keys[] = new boolean[255];
+
+void setup() {
+  size(displayWidth, displayHeight);
+  Player = loadImage("Main.png");
+  px = width/2;
+  py = height/2;
+
+  bullets.add(new Bullet());
+}
+
+void draw() {
+  background(255);
+  updatePlayers();
+
+  for (int i = bullets.size ()-1; i>=0; i--) {
+    Bullet b = bullets.get(i);
+    b.display();
+    b.move();
+  }
+
+  theta=atan2(mouseY-py, mouseX-px);
+  translate(px, py);
+  rotate(theta);
+  image(Player, -(Player.width)/2, -(Player.height)/2);
+}
+
+void mousePressed() {
+  bullets.add(new Bullet());
+}
+
+
+
+void keyPressed() {
+  if (key==CODED) {
+    keys[keyCode] = true;
+  } else if (key!=CODED) {
+    keys[key] = true;
+  }
+}
+
+void keyReleased() {
+  if (key==CODED) {
+    keys[keyCode] = false;
+  } else if (key!=CODED) {
+    keys[key] = false;
+  }
+}
+
+void updatePlayers() {
+  if (keys['w']) {
+    py-=3;
+  }
+  if (keys['s']) {
+    py+=3;
+  }
+  if (keys['a']) {
+    px-=3;
+  }
+  if (keys['d']) {
+    px+=3;
+  }
+   if (keys['d']) {
+    px+=3;
+  } 
+  
+  
+}
